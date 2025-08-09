@@ -1,5 +1,0 @@
-D:/Interviuri/QST/build/CMakeFiles/frame_parser.dir
-D:/Interviuri/QST/build/CMakeFiles/QST.dir
-D:/Interviuri/QST/build/CMakeFiles/test_frame_parser.dir
-D:/Interviuri/QST/build/CMakeFiles/ALL_BUILD.dir
-D:/Interviuri/QST/build/CMakeFiles/ZERO_CHECK.dir
