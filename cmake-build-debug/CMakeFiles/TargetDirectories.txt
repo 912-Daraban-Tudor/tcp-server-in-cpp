@@ -1,0 +1,3 @@
+D:/Interviuri/QST/cmake-build-debug/CMakeFiles/QST.dir
+D:/Interviuri/QST/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Interviuri/QST/cmake-build-debug/CMakeFiles/rebuild_cache.dir
