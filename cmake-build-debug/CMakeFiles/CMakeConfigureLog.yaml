@@ -570,3 +570,36 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FindThreads.cmake:99 (CHECK_CXX_SOURCE_COMPILES)"
+      - "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "CMakeLists.txt:22 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "D:/Interviuri/QST/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-rnf7kq"
+      binary: "D:/Interviuri/QST/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-rnf7kq"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g -g -O0 -fsanitize=address,undefined -fno-omit-frame-pointer"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_POSITION_INDEPENDENT_CODE: "ON"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/Interviuri/QST/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-rnf7kq'
+        
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2023.3.4/bin/ninja/win/x64/ninja.exe" -v cmTC_c4230
+        [1/2] C:\\msys64\\mingw64\\bin\\c++.exe -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/cmTC_c4230.dir/src.cxx.obj -c D:/Interviuri/QST/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-rnf7kq/src.cxx
+        [2/2] cmd.exe /C "cd . && C:\\msys64\\mingw64\\bin\\c++.exe   CMakeFiles/cmTC_c4230.dir/src.cxx.obj -o cmTC_c4230.exe -Wl,--out-implib,libcmTC_c4230.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+...
