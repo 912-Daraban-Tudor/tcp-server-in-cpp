@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
 project(QST LANGUAGES CXX)
 
+if (WIN32)
+    add_compile_definitions(NOMINMAX)
+endif()
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -47,3 +51,34 @@ add_executable(test_frame_parser
 target_link_libraries(test_frame_parser
         PRIVATE frame_parser Threads::Threads
 )
+
+
+# server
+add_executable(server_qst src/server.cpp)
+target_link_libraries(server_qst PRIVATE frame_parser Threads::Threads)
+if (WIN32)
+    target_link_libraries(server_qst PRIVATE ws2_32)
+endif()
+
+# demo client
+add_executable(client_demo src/client_demo.cpp)
+if (WIN32)
+    target_link_libraries(client_demo PRIVATE ws2_32)
+endif()
+
+# (optional) put binaries in build/bin
+set_target_properties(server_qst client_demo PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin"
+)
+
+
+add_executable(client_login_echo src/client_login_echo.cpp)
+if (WIN32)
+    target_link_libraries(client_login_echo PRIVATE ws2_32)
+endif()
+set_target_properties(client_login_echo PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")

@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "QST",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "QST::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-QST-Debug-a9a4f2759654094f4cb4.json",
+					"name" : "QST",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "client_demo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-client_demo-Debug-5e8423d5bc86e429c360.json",
+					"name" : "client_demo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "client_login_echo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-client_login_echo-Debug-7b58be72e4da3f52a072.json",
+					"name" : "client_login_echo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "frame_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-frame_parser-Debug-3c01e27e962312fad25e.json",
+					"name" : "frame_parser",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "server_qst::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-server_qst-Debug-db1164406b7faae6485c.json",
+					"name" : "server_qst",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frame_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frame_parser-Debug-f566ddd5b6a4bf956802.json",
+					"name" : "test_frame_parser",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Interviuri/QST/cmake-build-debug",
+		"source" : "D:/Interviuri/QST"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
