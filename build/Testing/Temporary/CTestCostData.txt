@@ -1,0 +1,3 @@
+frame_parser 1 0.0054007
+lcg_keystream 1 0.0027359
+---

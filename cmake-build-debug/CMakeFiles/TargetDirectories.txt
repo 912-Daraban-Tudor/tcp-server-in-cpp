@@ -1,8 +1,0 @@
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/frame_parser.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/QST.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/test_frame_parser.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/server_qst.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/client_demo.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/client_login_echo.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Interviuri/QST/cmake-build-debug/CMakeFiles/rebuild_cache.dir

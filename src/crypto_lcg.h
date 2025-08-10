@@ -5,7 +5,7 @@
 
 inline uint8_t checksum8_bytes(const uint8_t* p, size_t n) {
     uint8_t s = 0;
-    for (size_t i = 0; i < n; ++i) s = uint8_t(s + p[i]); // wraps mod 256
+    for (size_t i = 0; i < n; ++i) s = uint8_t(s + p[i]); // sum mod 256
     return s;
 }
 
