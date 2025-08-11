@@ -4,7 +4,7 @@
 #include <string>
 #include <algorithm>
 
-// Message types (per spec)
+// Message types
 constexpr uint8_t MSG_LOGIN_REQ   = 0;  // Login Request
 constexpr uint8_t MSG_LOGIN_RESP  = 1;  // Login Response
 constexpr uint8_t MSG_ECHO_REQ    = 2;  // Echo Request
