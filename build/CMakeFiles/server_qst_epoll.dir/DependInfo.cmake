@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/tudordaraban/dev/tcp-server-in-cpp/src/main.cpp" "CMakeFiles/QST.dir/src/main.cpp.o" "gcc" "CMakeFiles/QST.dir/src/main.cpp.o.d"
+  "/home/tudordaraban/dev/tcp-server-in-cpp/src/epoll_server.cpp" "CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.o" "gcc" "CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.o.d"
   )
 
 # Targets to which this target links.

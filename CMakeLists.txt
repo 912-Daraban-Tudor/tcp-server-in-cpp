@@ -91,3 +91,9 @@ add_test(NAME lcg_keystream COMMAND $<TARGET_FILE:test_lcg>)
 # (optional) put test binaries in build/bin/
 set_bin_dir(test_frame_parser)
 set_bin_dir(test_lcg)
+
+
+add_executable(server_qst_epoll src/epoll_server.cpp)
+target_link_libraries(server_qst_epoll PRIVATE frame_parser Threads::Threads)
+target_include_directories(server_qst_epoll PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set_bin_dir(server_qst_epoll)

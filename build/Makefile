@@ -166,19 +166,6 @@ client_login_echo/fast:
 .PHONY : client_login_echo/fast
 
 #=============================================================================
-# Target rules for targets named QST
-
-# Build rule for target.
-QST: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 QST
-.PHONY : QST
-
-# fast build rule for target.
-QST/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/QST.dir/build.make CMakeFiles/QST.dir/build
-.PHONY : QST/fast
-
-#=============================================================================
 # Target rules for targets named Experimental
 
 # Build rule for target.
@@ -568,6 +555,19 @@ test_lcg/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lcg.dir/build.make CMakeFiles/test_lcg.dir/build
 .PHONY : test_lcg/fast
 
+#=============================================================================
+# Target rules for targets named server_qst_epoll
+
+# Build rule for target.
+server_qst_epoll: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server_qst_epoll
+.PHONY : server_qst_epoll
+
+# fast build rule for target.
+server_qst_epoll/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/build
+.PHONY : server_qst_epoll/fast
+
 src/client_login_echo.o: src/client_login_echo.cpp.o
 .PHONY : src/client_login_echo.o
 
@@ -592,6 +592,30 @@ src/client_login_echo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.s
 .PHONY : src/client_login_echo.cpp.s
 
+src/epoll_server.o: src/epoll_server.cpp.o
+.PHONY : src/epoll_server.o
+
+# target to build an object file
+src/epoll_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.o
+.PHONY : src/epoll_server.cpp.o
+
+src/epoll_server.i: src/epoll_server.cpp.i
+.PHONY : src/epoll_server.i
+
+# target to preprocess a source file
+src/epoll_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.i
+.PHONY : src/epoll_server.cpp.i
+
+src/epoll_server.s: src/epoll_server.cpp.s
+.PHONY : src/epoll_server.s
+
+# target to generate assembly for a file
+src/epoll_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.s
+.PHONY : src/epoll_server.cpp.s
+
 src/frame_parser.o: src/frame_parser.cpp.o
 .PHONY : src/frame_parser.o
 
@@ -615,30 +639,6 @@ src/frame_parser.s: src/frame_parser.cpp.s
 src/frame_parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/frame_parser.dir/build.make CMakeFiles/frame_parser.dir/src/frame_parser.cpp.s
 .PHONY : src/frame_parser.cpp.s
-
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/QST.dir/build.make CMakeFiles/QST.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/QST.dir/build.make CMakeFiles/QST.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/QST.dir/build.make CMakeFiles/QST.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
 
 src/server.o: src/server.cpp.o
 .PHONY : src/server.o
@@ -749,21 +749,21 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
-	@echo "... QST"
 	@echo "... client_login_echo"
 	@echo "... frame_parser"
 	@echo "... server_qst"
+	@echo "... server_qst_epoll"
 	@echo "... test_frame_parser"
 	@echo "... test_lcg"
 	@echo "... src/client_login_echo.o"
 	@echo "... src/client_login_echo.i"
 	@echo "... src/client_login_echo.s"
+	@echo "... src/epoll_server.o"
+	@echo "... src/epoll_server.i"
+	@echo "... src/epoll_server.s"
 	@echo "... src/frame_parser.o"
 	@echo "... src/frame_parser.i"
 	@echo "... src/frame_parser.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

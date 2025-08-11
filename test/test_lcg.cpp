@@ -1,22 +1,21 @@
-// test/test_lcg.cpp
 #include "../src/crypto_lcg.h"
 #include <vector>
-#include <cstdint>
 #include <cassert>
 #include <iostream>
+#include <string>
 
 int main() {
     std::string user = "testuser";
     std::string pass = "testpass";
     uint8_t seq = 87; // 0x57
 
-    uint8_t us = checksum8_str_ascii(user); // expect 0x7F
-    uint8_t ps = checksum8_str_ascii(pass); // expect 0x77
+    uint8_t us = checksum8_str_ascii(user); // 0x7F
+    uint8_t ps = checksum8_str_ascii(pass); // 0x77
     uint32_t seed = (uint32_t(seq) << 16) | (uint32_t(us) << 8) | ps;
 
     const size_t N = 80;
-    std::vector<uint8_t> ks(N);
-    lcg_keystream(seed, ks.data(), ks.size());
+    std::vector<uint8_t> ks(N, 0);              // start with zeros
+    xor_with_lcg_inplace(seed, ks.data(), N);   // XOR with keystream -> keystream bytes
 
     const std::vector<uint8_t> expected = {
             0xE5,0xBA,0x6B,0xC9,0xCE,0xEF,0xFC,0x86,0x48,0xE1,0x06,0xC8,0x62,0xF3,0xB1,0x96,
