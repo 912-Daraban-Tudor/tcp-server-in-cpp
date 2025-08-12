@@ -64,11 +64,10 @@ CMAKE_BINARY_DIR = /home/tudordaraban/dev/tcp-server-in-cpp/build
 
 # The main recursive "all" target.
 all: CMakeFiles/frame_parser.dir/all
-all: CMakeFiles/server_qst.dir/all
-all: CMakeFiles/client_login_echo.dir/all
+all: CMakeFiles/server_qst_epoll.dir/all
+all: CMakeFiles/client_qst.dir/all
 all: CMakeFiles/test_frame_parser.dir/all
 all: CMakeFiles/test_lcg.dir/all
-all: CMakeFiles/server_qst_epoll.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -77,8 +76,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/frame_parser.dir/clean
-clean: CMakeFiles/server_qst.dir/clean
-clean: CMakeFiles/client_login_echo.dir/clean
+clean: CMakeFiles/server_qst_epoll.dir/clean
+clean: CMakeFiles/client_qst.dir/clean
 clean: CMakeFiles/Experimental.dir/clean
 clean: CMakeFiles/Nightly.dir/clean
 clean: CMakeFiles/Continuous.dir/clean
@@ -109,7 +108,6 @@ clean: CMakeFiles/ContinuousMemCheck.dir/clean
 clean: CMakeFiles/ContinuousSubmit.dir/clean
 clean: CMakeFiles/test_frame_parser.dir/clean
 clean: CMakeFiles/test_lcg.dir/clean
-clean: CMakeFiles/server_qst_epoll.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -139,56 +137,56 @@ CMakeFiles/frame_parser.dir/clean:
 .PHONY : CMakeFiles/frame_parser.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/server_qst.dir
+# Target rules for target CMakeFiles/server_qst_epoll.dir
 
 # All Build rule for target.
-CMakeFiles/server_qst.dir/all: CMakeFiles/frame_parser.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=5,6 "Built target server_qst"
-.PHONY : CMakeFiles/server_qst.dir/all
+CMakeFiles/server_qst_epoll.dir/all: CMakeFiles/frame_parser.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=5,6 "Built target server_qst_epoll"
+.PHONY : CMakeFiles/server_qst_epoll.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/server_qst.dir/rule: cmake_check_build_system
+CMakeFiles/server_qst_epoll.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/server_qst.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/server_qst_epoll.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 0
-.PHONY : CMakeFiles/server_qst.dir/rule
+.PHONY : CMakeFiles/server_qst_epoll.dir/rule
 
 # Convenience name for target.
-server_qst: CMakeFiles/server_qst.dir/rule
-.PHONY : server_qst
+server_qst_epoll: CMakeFiles/server_qst_epoll.dir/rule
+.PHONY : server_qst_epoll
 
 # clean rule for target.
-CMakeFiles/server_qst.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/clean
-.PHONY : CMakeFiles/server_qst.dir/clean
+CMakeFiles/server_qst_epoll.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/clean
+.PHONY : CMakeFiles/server_qst_epoll.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/client_login_echo.dir
+# Target rules for target CMakeFiles/client_qst.dir
 
 # All Build rule for target.
-CMakeFiles/client_login_echo.dir/all: CMakeFiles/frame_parser.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=1,2 "Built target client_login_echo"
-.PHONY : CMakeFiles/client_login_echo.dir/all
+CMakeFiles/client_qst.dir/all: CMakeFiles/frame_parser.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=1,2 "Built target client_qst"
+.PHONY : CMakeFiles/client_qst.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/client_login_echo.dir/rule: cmake_check_build_system
+CMakeFiles/client_qst.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/client_login_echo.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/client_qst.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 0
-.PHONY : CMakeFiles/client_login_echo.dir/rule
+.PHONY : CMakeFiles/client_qst.dir/rule
 
 # Convenience name for target.
-client_login_echo: CMakeFiles/client_login_echo.dir/rule
-.PHONY : client_login_echo
+client_qst: CMakeFiles/client_qst.dir/rule
+.PHONY : client_qst
 
 # clean rule for target.
-CMakeFiles/client_login_echo.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/clean
-.PHONY : CMakeFiles/client_login_echo.dir/clean
+CMakeFiles/client_qst.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/clean
+.PHONY : CMakeFiles/client_qst.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/Experimental.dir
@@ -925,7 +923,7 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/test_frame_parser.dir/all: CMakeFiles/frame_parser.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_frame_parser.dir/build.make CMakeFiles/test_frame_parser.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_frame_parser.dir/build.make CMakeFiles/test_frame_parser.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=9,10 "Built target test_frame_parser"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=7,8 "Built target test_frame_parser"
 .PHONY : CMakeFiles/test_frame_parser.dir/all
 
 # Build rule for subdir invocation for target.
@@ -951,7 +949,7 @@ CMakeFiles/test_frame_parser.dir/clean:
 CMakeFiles/test_lcg.dir/all: CMakeFiles/frame_parser.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lcg.dir/build.make CMakeFiles/test_lcg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lcg.dir/build.make CMakeFiles/test_lcg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=11,12 "Built target test_lcg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=9,10 "Built target test_lcg"
 .PHONY : CMakeFiles/test_lcg.dir/all
 
 # Build rule for subdir invocation for target.
@@ -969,32 +967,6 @@ test_lcg: CMakeFiles/test_lcg.dir/rule
 CMakeFiles/test_lcg.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lcg.dir/build.make CMakeFiles/test_lcg.dir/clean
 .PHONY : CMakeFiles/test_lcg.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/server_qst_epoll.dir
-
-# All Build rule for target.
-CMakeFiles/server_qst_epoll.dir/all: CMakeFiles/frame_parser.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles --progress-num=7,8 "Built target server_qst_epoll"
-.PHONY : CMakeFiles/server_qst_epoll.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/server_qst_epoll.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/server_qst_epoll.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles 0
-.PHONY : CMakeFiles/server_qst_epoll.dir/rule
-
-# Convenience name for target.
-server_qst_epoll: CMakeFiles/server_qst_epoll.dir/rule
-.PHONY : server_qst_epoll
-
-# clean rule for target.
-CMakeFiles/server_qst_epoll.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/clean
-.PHONY : CMakeFiles/server_qst_epoll.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

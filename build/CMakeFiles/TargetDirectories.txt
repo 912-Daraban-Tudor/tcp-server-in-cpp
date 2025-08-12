@@ -1,6 +1,6 @@
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/frame_parser.dir
-/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/server_qst.dir
-/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/client_login_echo.dir
+/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/server_qst_epoll.dir
+/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/client_qst.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/Experimental.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/Nightly.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/Continuous.dir
@@ -31,7 +31,6 @@
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/ContinuousSubmit.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/test_frame_parser.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/test_lcg.dir
-/home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/server_qst_epoll.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/test.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/edit_cache.dir
 /home/tudordaraban/dev/tcp-server-in-cpp/build/CMakeFiles/rebuild_cache.dir

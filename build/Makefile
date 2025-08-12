@@ -140,30 +140,30 @@ frame_parser/fast:
 .PHONY : frame_parser/fast
 
 #=============================================================================
-# Target rules for targets named server_qst
+# Target rules for targets named server_qst_epoll
 
 # Build rule for target.
-server_qst: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server_qst
-.PHONY : server_qst
+server_qst_epoll: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server_qst_epoll
+.PHONY : server_qst_epoll
 
 # fast build rule for target.
-server_qst/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/build
-.PHONY : server_qst/fast
+server_qst_epoll/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/build
+.PHONY : server_qst_epoll/fast
 
 #=============================================================================
-# Target rules for targets named client_login_echo
+# Target rules for targets named client_qst
 
 # Build rule for target.
-client_login_echo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client_login_echo
-.PHONY : client_login_echo
+client_qst: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client_qst
+.PHONY : client_qst
 
 # fast build rule for target.
-client_login_echo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/build
-.PHONY : client_login_echo/fast
+client_qst/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/build
+.PHONY : client_qst/fast
 
 #=============================================================================
 # Target rules for targets named Experimental
@@ -555,42 +555,29 @@ test_lcg/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lcg.dir/build.make CMakeFiles/test_lcg.dir/build
 .PHONY : test_lcg/fast
 
-#=============================================================================
-# Target rules for targets named server_qst_epoll
-
-# Build rule for target.
-server_qst_epoll: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server_qst_epoll
-.PHONY : server_qst_epoll
-
-# fast build rule for target.
-server_qst_epoll/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst_epoll.dir/build.make CMakeFiles/server_qst_epoll.dir/build
-.PHONY : server_qst_epoll/fast
-
-src/client_login_echo.o: src/client_login_echo.cpp.o
-.PHONY : src/client_login_echo.o
+src/client.o: src/client.cpp.o
+.PHONY : src/client.o
 
 # target to build an object file
-src/client_login_echo.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.o
-.PHONY : src/client_login_echo.cpp.o
+src/client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/src/client.cpp.o
+.PHONY : src/client.cpp.o
 
-src/client_login_echo.i: src/client_login_echo.cpp.i
-.PHONY : src/client_login_echo.i
+src/client.i: src/client.cpp.i
+.PHONY : src/client.i
 
 # target to preprocess a source file
-src/client_login_echo.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.i
-.PHONY : src/client_login_echo.cpp.i
+src/client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/src/client.cpp.i
+.PHONY : src/client.cpp.i
 
-src/client_login_echo.s: src/client_login_echo.cpp.s
-.PHONY : src/client_login_echo.s
+src/client.s: src/client.cpp.s
+.PHONY : src/client.s
 
 # target to generate assembly for a file
-src/client_login_echo.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_login_echo.dir/build.make CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.s
-.PHONY : src/client_login_echo.cpp.s
+src/client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_qst.dir/build.make CMakeFiles/client_qst.dir/src/client.cpp.s
+.PHONY : src/client.cpp.s
 
 src/epoll_server.o: src/epoll_server.cpp.o
 .PHONY : src/epoll_server.o
@@ -639,30 +626,6 @@ src/frame_parser.s: src/frame_parser.cpp.s
 src/frame_parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/frame_parser.dir/build.make CMakeFiles/frame_parser.dir/src/frame_parser.cpp.s
 .PHONY : src/frame_parser.cpp.s
-
-src/server.o: src/server.cpp.o
-.PHONY : src/server.o
-
-# target to build an object file
-src/server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/src/server.cpp.o
-.PHONY : src/server.cpp.o
-
-src/server.i: src/server.cpp.i
-.PHONY : src/server.i
-
-# target to preprocess a source file
-src/server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/src/server.cpp.i
-.PHONY : src/server.cpp.i
-
-src/server.s: src/server.cpp.s
-.PHONY : src/server.s
-
-# target to generate assembly for a file
-src/server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_qst.dir/build.make CMakeFiles/server_qst.dir/src/server.cpp.s
-.PHONY : src/server.cpp.s
 
 test/test_frame_parser.o: test/test_frame_parser.cpp.o
 .PHONY : test/test_frame_parser.o
@@ -749,24 +712,20 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
-	@echo "... client_login_echo"
+	@echo "... client_qst"
 	@echo "... frame_parser"
-	@echo "... server_qst"
 	@echo "... server_qst_epoll"
 	@echo "... test_frame_parser"
 	@echo "... test_lcg"
-	@echo "... src/client_login_echo.o"
-	@echo "... src/client_login_echo.i"
-	@echo "... src/client_login_echo.s"
+	@echo "... src/client.o"
+	@echo "... src/client.i"
+	@echo "... src/client.s"
 	@echo "... src/epoll_server.o"
 	@echo "... src/epoll_server.i"
 	@echo "... src/epoll_server.s"
 	@echo "... src/frame_parser.o"
 	@echo "... src/frame_parser.i"
 	@echo "... src/frame_parser.s"
-	@echo "... src/server.o"
-	@echo "... src/server.i"
-	@echo "... src/server.s"
 	@echo "... test/test_frame_parser.o"
 	@echo "... test/test_frame_parser.i"
 	@echo "... test/test_frame_parser.s"

@@ -110,8 +110,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/frame_parser.dir/DependInfo.cmake"
-  "CMakeFiles/server_qst.dir/DependInfo.cmake"
-  "CMakeFiles/client_login_echo.dir/DependInfo.cmake"
+  "CMakeFiles/server_qst_epoll.dir/DependInfo.cmake"
+  "CMakeFiles/client_qst.dir/DependInfo.cmake"
   "CMakeFiles/Experimental.dir/DependInfo.cmake"
   "CMakeFiles/Nightly.dir/DependInfo.cmake"
   "CMakeFiles/Continuous.dir/DependInfo.cmake"
@@ -142,5 +142,4 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
   "CMakeFiles/test_frame_parser.dir/DependInfo.cmake"
   "CMakeFiles/test_lcg.dir/DependInfo.cmake"
-  "CMakeFiles/server_qst_epoll.dir/DependInfo.cmake"
   )

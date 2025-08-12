@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/tudordaraban/dev/tcp-server-in-cpp/src/client_login_echo.cpp" "CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.o" "gcc" "CMakeFiles/client_login_echo.dir/src/client_login_echo.cpp.o.d"
+  "/home/tudordaraban/dev/tcp-server-in-cpp/src/client.cpp" "CMakeFiles/client_qst.dir/src/client.cpp.o" "gcc" "CMakeFiles/client_qst.dir/src/client.cpp.o.d"
   )
 
 # Targets to which this target links.
