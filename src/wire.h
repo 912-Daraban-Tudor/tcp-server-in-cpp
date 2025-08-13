@@ -12,16 +12,17 @@
 
 // protocol constants
 constexpr std::size_t USER_PASS_FIELD   = 32;
-constexpr std::size_t PROTO_HEADER_SIZE = 4;  // BE16 total size + type + seq
+constexpr std::size_t PROTO_HEADER_SIZE = 4;  // be16 total size + type + seq
 
-// message types (both enum and legacy constants for convenience)
+// message types
+/** condtexpr ints because the client & server used them */
 enum class MsgType : uint8_t { LoginReq = 0, LoginResp = 1, EchoReq = 2, EchoResp = 3 };
 constexpr uint8_t MSG_LOGIN_REQ  = static_cast<uint8_t>(MsgType::LoginReq);
 constexpr uint8_t MSG_LOGIN_RESP = static_cast<uint8_t>(MsgType::LoginResp);
 constexpr uint8_t MSG_ECHO_REQ   = static_cast<uint8_t>(MsgType::EchoReq);
 constexpr uint8_t MSG_ECHO_RESP  = static_cast<uint8_t>(MsgType::EchoResp);
 
-// BE16 helpers
+// be16 helpers
 inline uint16_t be16(const uint8_t* p) noexcept {
     return static_cast<uint16_t>( (uint16_t(p[0]) << 8) | uint16_t(p[1]) );
 }
@@ -48,7 +49,7 @@ inline void put_be16(uint8_t* p, uint16_t v) noexcept {
     return out;
 }
 
-// Write ASCIIZ
+// Writes ASCIIZ
 inline void write_asciiz32(std::span<uint8_t, USER_PASS_FIELD> out, std::string_view s) noexcept {
     const std::size_t n = std::min<std::size_t>(s.size(), USER_PASS_FIELD - 1);
     if (n)
@@ -73,7 +74,7 @@ inline std::vector<uint8_t> build_frame(uint8_t type, uint8_t seq, std::span<con
     return out;
 }
 
-// Seed = (seq << 16) | (user_sum << 8) | pass_sum
+// seed = (seq << 16) | (user_sum << 8) | pass_sum
 inline uint32_t compute_seed(uint8_t seq, uint8_t user_sum, uint8_t pass_sum) noexcept {
     return (uint32_t(seq) << 16) | (uint32_t(user_sum) << 8) | uint32_t(pass_sum);
 }

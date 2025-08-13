@@ -28,10 +28,13 @@ namespace {
     void usage(const char* prog) {
         std::cerr
                 << "Usage: " << prog << " [host] [port] [--user=U] [--pass=P] [--msg=M] [--seq=N]\n"
-                << "Defaults: host=127.0.0.1 port=5555 user=testuser pass=testpass msg=\"Hello from client\" seq=2\n";
+                << "Defaults: host=127.0.0.1 port=5555 user=user pass=password msg=\"client for the tcp server\" seq=2\n";
     }
 
-// TCP can short-write, loop until all sent. Treat EAGAIN/EWOULDBLOCK as timeout/failure.
+/** tcp can short-write, loop until all sent
+ *  EAGAIN/EWOULDBLOCK treated as timeout/failure
+ */
+
     bool send_all(socket_t s, const uint8_t* p, size_t n) {
         while (n) {
             const ssize_t k = ::send(s, p, n, 0);
@@ -42,7 +45,7 @@ namespace {
             }
             if (k < 0 && errno == EINTR)
                 continue;
-            return false; // timeout/EPIPE/other
+            return false;
         }
         return true;
     }
@@ -57,12 +60,15 @@ namespace {
             }
             if (k < 0 && errno == EINTR)
                 continue;
-            return false; // timeout/closed/other
+            return false;
         }
         return true;
     }
 
-// Read one framed message: fills type/seq/payload; returns false on failure.
+/**
+ * Read one framed message, fills type/seq/payload;
+ * @return false on failure
+ */
     bool read_frame(socket_t s, uint8_t& type, uint8_t& seq, std::vector<uint8_t>& payload) {
         uint8_t hdr[PROTO_HEADER_SIZE];
         if (!recv_all(s, hdr, PROTO_HEADER_SIZE))
@@ -84,16 +90,16 @@ namespace {
 } // namespace
 
 int main(int argc, char** argv) {
-    ::signal(SIGPIPE, SIG_IGN); // Linux-only: avoid SIGPIPE on send
+    ::signal(SIGPIPE, SIG_IGN);
 
-    // Defaults, overridable via CLI
-    std::string user      = "user";
-    std::string pass      = "password";
+    // defaults
+    std::string user = "user";
+    std::string pass = "password";
     std::string plaintext = "client for the tcp server";
-    int         seq_echo  = 2;
+    int seq_echo = 2;
     const uint8_t seq_login = 1;
 
-    // Parse long options first, host/port remain positional
+    // parse long options, host & port are positional
     static option opts[] = {
             {"user", required_argument, nullptr, 'u'},
             {"pass", required_argument, nullptr, 'p'},
@@ -101,7 +107,8 @@ int main(int argc, char** argv) {
             {"seq",  required_argument, nullptr, 's'},
             {nullptr,0,nullptr,0}
     };
-    int opt = 0, idx = 0;
+    int opt;
+    int idx = 0;
     while ((opt = ::getopt_long(argc, argv, "", opts, &idx)) != -1) {
         switch (opt) {
             case 'u': user = optarg; break;
@@ -142,7 +149,10 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // Timeouts + low latency (best effort)
+    /**
+     * Setting timeouts for recv and send, 10 seconds
+     * Disabling Nagle's algorithm to avoid delays (the TCP_NODELAY at tcp protocol level)
+     * */
     const timeval tv{10, 0}; // 10s
     (void)::setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
     (void)::setsockopt(s, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
@@ -155,7 +165,7 @@ int main(int argc, char** argv) {
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
     if (::inet_pton(AF_INET, host, &addr.sin_addr) != 1) {
-        std::cerr << "bad IPv4 address\n";
+        std::cerr << "bad address\n";
         close_fd(s);
         return 2;
     }
@@ -166,7 +176,7 @@ int main(int argc, char** argv) {
         return 3;
     }
 
-    // --- 1) Login ----
+    // 1. login
     std::vector<uint8_t> login_payload(USER_PASS_FIELD * 2);
     write_asciiz32(std::span<uint8_t, USER_PASS_FIELD>(login_payload.data(), USER_PASS_FIELD), user);
     write_asciiz32(std::span<uint8_t, USER_PASS_FIELD>(login_payload.data() + USER_PASS_FIELD, USER_PASS_FIELD), pass);
@@ -197,11 +207,11 @@ int main(int argc, char** argv) {
     if (status != 1) {
         close_fd(s);
         return 11;
-    } // non-zero on failure
+    }
 
-    // --- 2) Echo (encrypt per spec) -----
+    // 2. echo
     if (seq_echo < 0 || seq_echo > 255) {
-        std::cerr << "--seq must be 0..255\n";
+        std::cerr << "seq must be 0..255\n";
         close_fd(s);
         return 1;
     }
@@ -229,7 +239,7 @@ int main(int argc, char** argv) {
         return 7;
     }
 
-    // --- 3) Echo Response plaintext -----
+    // 3. echo response plaintext
     if (!read_frame(s, rtype, rseq, rpay)) {
         std::cerr << "recv(echo resp) failed\n";
         close_fd(s);

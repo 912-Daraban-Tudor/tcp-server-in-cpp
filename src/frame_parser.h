@@ -5,7 +5,7 @@
 #include <vector>
 #include "wire.h"
 
-// wire header is 4 bytes: BE16 size, type, seq
+// wire header is 4 bytes (BE16 size, type, seq)
 struct Frame {
     uint16_t             message_size;
     uint8_t              message_type;
@@ -17,8 +17,8 @@ class FrameParser {
 public:
     explicit FrameParser(std::size_t max_frame_size = 64 * 1024);
 
-    /** feed bytes, may return multiple frames.
-     * Throws std::runtime_error on malformed header/size.
+    /** feed bytes, may return multiple frames
+     * Throws runtime_error on malformed header or size
      */
     std::vector<Frame> feed(const uint8_t* data, std::size_t len);
     std::vector<Frame> feed(const std::vector<uint8_t>& data) {

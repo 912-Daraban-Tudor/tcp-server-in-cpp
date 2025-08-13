@@ -1,102 +1,107 @@
-// test/test_frame_parser.cpp
 #include "../src/frame_parser.h"
-#include <iostream>
-#include <cassert>
-#include <vector>
-#include <string>
 
-// Helper: build a frame byte vector for given type, seq, payload
-static std::vector<uint8_t> build_frame(uint8_t type, uint8_t seq, const std::vector<uint8_t>& payload) {
-    uint16_t size = 4 + static_cast<uint16_t>(payload.size());
-    std::vector<uint8_t> out;
-    out.reserve(size);
-    // big-endian message_size
-    out.push_back(static_cast<uint8_t>((size >> 8) & 0xFF));
-    out.push_back(static_cast<uint8_t>(size & 0xFF));
-    out.push_back(type);
-    out.push_back(seq);
-    out.insert(out.end(), payload.begin(), payload.end());
-    return out;
-}
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <vector>
 
 static void print_frame(const Frame &f) {
-    std::cout << "Frame size=" << f.message_size
+    std::cout << "frame size=" << f.message_size
               << " type=" << int(f.message_type)
               << " seq="  << int(f.message_sequence)
-              << " payload_len=" << f.payload.size() << "\n";
+              << " payload_length=" << f.payload.size() << "\n";
 }
 
 int main() {
+    static_assert(PROTO_HEADER_SIZE == 4, "header must be 4 bytes");
+
     FrameParser p;
 
-    // Test 1: header split across two feeds
-    auto frame1 = build_frame(1, 5, std::vector<uint8_t>{'H','e','l','l','o'});
-    std::vector<uint8_t> part1(frame1.begin(), frame1.begin() + 2); // size hi/lo only
-    std::vector<uint8_t> part2(frame1.begin() + 2, frame1.end());
+    // 1. header split across two feeds
+    {
+        const std::vector<uint8_t> payload{'H','e','l','l','o'};
+        auto frame1 = build_frame(1, 5, std::span<const uint8_t>(payload.data(), payload.size()));
+        std::vector<uint8_t> part1(frame1.begin(), frame1.begin() + 2);
+        std::vector<uint8_t> part2(frame1.begin() + 2, frame1.end());
 
-    auto res1 = p.feed(part1);
-    assert(res1.empty()); // not complete yet
-    auto res2 = p.feed(part2);
-    assert(res2.size() == 1);
-    print_frame(res2[0]);
-    assert(res2[0].payload.size() == 5);
-    assert(std::string(res2[0].payload.begin(), res2[0].payload.end()) == "Hello");
+        auto r1 = p.feed(part1);
+        assert(r1.empty());
 
-    // Test 2: two frames concatenated in one feed
-    auto frame2 = build_frame(2, 7, std::vector<uint8_t>{0x01,0x02});
-    auto frame3 = build_frame(3, 9, std::vector<uint8_t>{});
-    std::vector<uint8_t> cat;
-    cat.insert(cat.end(), frame2.begin(), frame2.end());
-    cat.insert(cat.end(), frame3.begin(), frame3.end());
+        auto r2 = p.feed(part2);
+        assert(r2.size() == 1);
+        print_frame(r2[0]);
+        assert(r2[0].message_type == 1);
+        assert(r2[0].message_sequence == 5);
+        assert(r2[0].payload.size() == payload.size());
+        assert(std::string(r2[0].payload.begin(), r2[0].payload.end()) == "Hello");
+    }
 
-    auto res3 = p.feed(cat);
-    assert(res3.size() == 2);
-    print_frame(res3[0]);
-    print_frame(res3[1]);
-    assert(res3[0].message_type == 2 && res3[1].message_type == 3);
+    // 2. two frames concatenated in one read
+    {
+        const std::vector<uint8_t> p2{0x01,0x02};
+        const std::vector<uint8_t> p3{};
+        auto f2 = build_frame(2, 7, std::span<const uint8_t>(p2.data(), p2.size()));
+        auto f3 = build_frame(3, 9, std::span<const uint8_t>(p3.data(), p3.size()));
 
-    // Test 3: payload split across many small chunks (byte-by-byte)
-    auto frame4 = build_frame(0xFF, 0xAA, std::vector<uint8_t>{'a','b','c','d','e','f','g','h','i','j'});
-    for (size_t i = 0; i < frame4.size(); ++i) {
-        std::vector<uint8_t> chunk{frame4[i]};
-        auto r = p.feed(chunk);
-        if (i < frame4.size() - 1) {
-            assert(r.empty());
-        } else {
-            assert(r.size() == 1);
-            print_frame(r[0]);
-            assert(r[0].payload.size() == 10);
+        std::vector<uint8_t> cat;
+        cat.reserve(f2.size() + f3.size());
+        cat.insert(cat.end(), f2.begin(), f2.end());
+        cat.insert(cat.end(), f3.begin(), f3.end());
+
+        auto r = p.feed(cat);
+        assert(r.size() == 2);
+        print_frame(r[0]); print_frame(r[1]);
+        assert(r[0].message_type == 2 && r[0].message_sequence == 7);
+        assert(r[1].message_type == 3 && r[1].message_sequence == 9);
+        assert(r[1].payload.empty());
+    }
+
+    // 3. payload split int diff bytes
+    {
+        const std::vector<uint8_t> pl{'a','b','c','d','e','f','g','h','i','j'};
+        auto f = build_frame(0xFF, 0xAA, std::span<const uint8_t>(pl.data(), pl.size()));
+        for (size_t i = 0; i < f.size(); ++i) {
+            std::vector<uint8_t> chunk{f[i]};
+            auto r = p.feed(chunk);
+            if (i + 1 < f.size()) {
+                assert(r.empty());
+            } else {
+                assert(r.size() == 1);
+                print_frame(r[0]);
+                assert(r[0].message_type == 0xFF);
+                assert(r[0].message_sequence == 0xAA);
+                assert(r[0].payload.size() == pl.size());
+            }
         }
     }
 
-    // Test 4: malformed size (< 4) -> throws
+    // 4. malformed length -> throws runtime error
     try {
-        std::vector<uint8_t> bad = {0x00, 0x02, 0x11, 0x22}; // size=2
-        p.feed(bad);
-        std::cerr << "Expected exception for invalid size, but none thrown\n";
+        // size = 2 (invalid)
+        std::vector<uint8_t> bad = {0x00, 0x02, 0x11, 0x22};
+        (void)p.feed(bad);
+        std::cerr << "expected exception for invalid size, but none thrown\n";
         return 2;
     } catch (const std::runtime_error &) {
-        // ok
     }
 
-    // Test 5: oversize frame rejected (use a tiny max_frame_size)
+    // 5. oversize rejected, uses small max frame size
     try {
-        FrameParser tiny(128);
-        auto big_payload = std::vector<uint8_t>(200, 0xAA); // 4+200 = 204 > 128
-        auto big = build_frame(1, 1, big_payload);
-        (void)tiny.feed(big);
-        std::cerr << "Expected exception for oversize frame, but none thrown\n";
+        FrameParser small(128);
+        std::vector<uint8_t> big_payload(200, 0xAA); // 4+200 = 204 > 128
+        auto big = build_frame(1, 1, std::span<const uint8_t>(big_payload.data(), big_payload.size()));
+        (void)small.feed(big);
+        std::cerr << "expected exception for oversize frame, but none thrown\n";
         return 3;
     } catch (const std::runtime_error &) {
-        // ok
     }
 
-    // Test 6: boundary near 0xFFFF works (default max 64 KiB; 65535 fits)
+    // 6. big bound near FFFF works
     {
-        const size_t payload_len = 65535u - 4u; // = 65531
+        const size_t payload_len = 65535u - PROTO_HEADER_SIZE; // 65531
         std::vector<uint8_t> big(payload_len, 0x5A);
-        auto f = build_frame(2, 0x7E, big);
-        FrameParser px; // default 64*1024 = 65536; 65535 <= 65536 OK
+        auto f = build_frame(2, 0x7E, std::span<const uint8_t>(big.data(), big.size()));
+        FrameParser px; // default 64KiB, so 65535 fits
         auto r = px.feed(f);
         assert(r.size() == 1);
         assert(r[0].message_size == 65535);
@@ -105,6 +110,24 @@ int main() {
         assert(r[0].message_sequence == 0x7E);
     }
 
-    std::cout << "All FrameParser tests passed.\n";
+    // 7. large payload in two chunks -> no early frame
+    {
+        FrameParser q;
+        std::vector<uint8_t> big(4096, 0x77);
+        auto f = build_frame(4, 4, std::span<const uint8_t>(big.data(), big.size()));
+
+
+        std::vector<uint8_t> half(f.begin(), f.begin() + PROTO_HEADER_SIZE + 2048);
+        auto r1 = q.feed(half);
+        assert(r1.empty());
+
+
+        std::vector<uint8_t> rest(f.begin() + half.size(), f.end());
+        auto r2 = q.feed(rest);
+        assert(r2.size() == 1);
+        assert(r2[0].payload.size() == big.size());
+    }
+
+    std::cout << "all FrameParser tests passed!\n";
     return 0;
 }

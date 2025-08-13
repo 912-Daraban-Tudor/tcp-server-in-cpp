@@ -9,7 +9,7 @@ constexpr uint32_t LCG_A = 1103515245u;
 constexpr uint32_t LCG_C = 12345u;
 constexpr uint32_t LCG_M = 0x7FFFFFFFu; // 2^31 - 1
 
-// Sum mod 256 over raw bytes
+// sum mod 256 over raw bytes
 inline uint8_t checksum8_bytes(const uint8_t* p, size_t n) noexcept {
     uint8_t s = 0;
     for (size_t i = 0; i < n; ++i)
@@ -17,7 +17,7 @@ inline uint8_t checksum8_bytes(const uint8_t* p, size_t n) noexcept {
     return s;
 }
 
-// Sum mod 256 over ASCII string
+// sum mod 256 over ASCII string
 inline uint8_t checksum8_str_ascii(std::string_view s) noexcept {
     uint8_t sum = 0;
     for (unsigned char ch : s)
@@ -39,11 +39,6 @@ inline void xor_with_lcg_inplace(uint32_t seed, uint8_t* data, size_t n) noexcep
     }
 }
 
-// span/vector ergonomics
-inline void xor_with_lcg(uint32_t seed, std::span<uint8_t> buf) noexcept {
-    if (!buf.empty())
-        xor_with_lcg_inplace(seed, buf.data(), buf.size());
-}
 inline void xor_with_lcg(uint32_t seed, std::vector<uint8_t>& buf) noexcept {
     if (!buf.empty())
         xor_with_lcg_inplace(seed, buf.data(), buf.size());

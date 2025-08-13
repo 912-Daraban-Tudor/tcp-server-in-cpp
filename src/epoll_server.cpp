@@ -15,7 +15,7 @@
 #include <netinet/tcp.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <signal.h>
+#include <csignal>
 
 using socket_t = int;
 
@@ -83,6 +83,7 @@ namespace {
         std::vector<uint8_t> write_buf;
         size_t               write_off = 0;
         bool                 want_write = false;
+        bool close_after_write = false;
     };
 
     void handle_frame(Connection& c, const Frame& f) {
@@ -93,6 +94,7 @@ namespace {
                     auto resp   = build_frame(MSG_LOGIN_RESP, f.message_sequence, status);
                     c.write_buf.insert(c.write_buf.end(), resp.begin(), resp.end());
                     c.want_write = true;
+                    c.close_after_write = true;
                     return;
                 }
 
@@ -141,7 +143,7 @@ namespace {
             }
         }
     }
-} // namespace
+} /** namespace */
 
 int main(int argc, char** argv) {
     uint16_t port = 5555;
@@ -158,7 +160,7 @@ int main(int argc, char** argv) {
 
     ignore_sigpipe();
 
-    // 1) create, bind, listen
+    // 1. create, bind, listen
     int listen_fd = ::socket(AF_INET, SOCK_STREAM, 0);
     if (listen_fd < 0) {
         ::perror("socket");
@@ -190,7 +192,7 @@ int main(int argc, char** argv) {
     }
     std::cout << "[epoll] listening on 0.0.0.0:" << port << "\n";
 
-    // 2) epoll setup
+    // 2. epoll stuff
     const int epfd = ::epoll_create1(0);
     if (epfd < 0) {
         ::perror("epoll_create1");
@@ -204,7 +206,7 @@ int main(int argc, char** argv) {
     std::vector<uint8_t> io_buf(IO_BUF_SIZE);
     std::vector<epoll_event> events(MAX_EVENTS);
 
-    // 3) event loop
+    // 3. event loop
     while (true) {
         const int n = ::epoll_wait(epfd, events.data(), MAX_EVENTS, -1);
         if (n < 0) {
@@ -216,7 +218,7 @@ int main(int argc, char** argv) {
             const epoll_event& e = events[i];
 
             if (e.data.fd == listen_fd) {
-                // accept as many as available
+
                 while (true) {
                     sockaddr_in cli{};
                     socklen_t clilen = sizeof(cli);
@@ -238,7 +240,6 @@ int main(int argc, char** argv) {
                 continue;
             }
 
-            // client fd
             const int fd = e.data.fd;
             auto it = conns.find(fd);
             if (it == conns.end()) continue;
@@ -246,7 +247,6 @@ int main(int argc, char** argv) {
 
             bool close_now = false;
 
-            // readable / remote closed
             if (e.events & (EPOLLIN | EPOLLRDHUP)) {
                 while (true) {
                     const ssize_t k = ::recv(fd, io_buf.data(), io_buf.size(), 0);
@@ -274,7 +274,6 @@ int main(int argc, char** argv) {
                 }
             }
 
-            // writable
             if (!close_now && (e.events & EPOLLOUT)) {
                 while (c.write_off < c.write_buf.size()) {
                     const uint8_t* p = c.write_buf.data() + c.write_off;
@@ -293,11 +292,14 @@ int main(int argc, char** argv) {
                     c.write_buf.clear();
                     c.write_off = 0;
                     c.want_write = false;
-                    epoll_mod(epfd, fd, EPOLLIN | EPOLLRDHUP);
+                    if (c.close_after_write) {
+                        close_now = true;
+                    } else {
+                        epoll_mod(epfd, fd, EPOLLIN | EPOLLRDHUP);
+                    }
                 }
             }
 
-            // enable EPOLLOUT if needed
             if (!close_now && c.want_write && !(e.events & EPOLLOUT)) {
                 epoll_mod(epfd, fd, EPOLLIN | EPOLLOUT | EPOLLRDHUP);
             }

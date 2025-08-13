@@ -29,7 +29,7 @@ std::vector<Frame> FrameParser::feed(const uint8_t* data, std::size_t len) {
         if (message_size > max_frame_size_) {
             throw std::runtime_error("invalid message_size > max_frame_size");
         }
-        if (available < message_size) break; // need more bytes
+        if (available < message_size) break;
 
         Frame f;
         f.message_size     = message_size;
@@ -42,7 +42,6 @@ std::vector<Frame> FrameParser::feed(const uint8_t* data, std::size_t len) {
         ready.push_back(std::move(f));
         read_pos_ += message_size;
 
-        // compact if we've consumed a lot
         if (read_pos_ >= COMPACT_ABS_THRESHOLD || read_pos_ >= buffer_.size() / 2) {
             auto it = buffer_.begin() + static_cast<std::ptrdiff_t>(read_pos_);
             buffer_.erase(buffer_.begin(), it);
