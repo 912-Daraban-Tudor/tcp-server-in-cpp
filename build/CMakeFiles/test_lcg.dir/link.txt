@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/test_lcg.dir/test/test_lcg.cpp.o -o bin/test_lcg  libframe_parser.a 

@@ -1,0 +1,39 @@
+Start testing: Aug 13 14:37 EEST
+----------------------------------------------------------
+1/2 Testing: frame_parser
+1/2 Test: frame_parser
+Command: "/home/tudordaraban/dev/tcp-server-in-cpp/build/bin/test_frame_parser"
+Directory: /home/tudordaraban/dev/tcp-server-in-cpp/build
+"frame_parser" start time: Aug 13 14:37 EEST
+Output:
+----------------------------------------------------------
+frame size=9 type=1 seq=5 payload_length=5
+frame size=6 type=2 seq=7 payload_length=2
+frame size=4 type=3 seq=9 payload_length=0
+frame size=14 type=255 seq=170 payload_length=10
+all FrameParser tests passed!
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"frame_parser" end time: Aug 13 14:37 EEST
+"frame_parser" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: lcg_keystream
+2/2 Test: lcg_keystream
+Command: "/home/tudordaraban/dev/tcp-server-in-cpp/build/bin/test_lcg"
+Directory: /home/tudordaraban/dev/tcp-server-in-cpp/build
+"lcg_keystream" start time: Aug 13 14:37 EEST
+Output:
+----------------------------------------------------------
+LCG tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"lcg_keystream" end time: Aug 13 14:37 EEST
+"lcg_keystream" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 13 14:37 EEST
