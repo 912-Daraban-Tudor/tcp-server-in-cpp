@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/client_qst.dir/src/client.cpp.o -o bin/client_qst  libframe_parser.a 

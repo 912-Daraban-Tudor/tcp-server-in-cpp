@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/server_qst_epoll.dir/src/epoll_server.cpp.o -o bin/server_qst_epoll  libframe_parser.a 

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libframe_parser.a CMakeFiles/frame_parser.dir/src/frame_parser.cpp.o
-/usr/bin/ranlib libframe_parser.a
